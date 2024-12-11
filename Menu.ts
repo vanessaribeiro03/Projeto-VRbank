@@ -1,8 +1,19 @@
 import readlinesync = require("readline-sync");
+import { Account } from "./src/model/Account";
 
 let opcao: number;
 
 do {
+    const c1 = new Account(1, 123, 1, 'Vanessa', 1000);
+    c1.view();
+    c1.withdraw(10000);
+    c1.view();
+
+    const c2 = new Account(1, 123, 1, 'Ribeiro', 1000);
+    c2.view();
+    c2.deposit(200);
+    c2.view();
+
     menu();
     opcao = readlinesync.questionInt();
 
@@ -10,6 +21,8 @@ do {
         console.log('Até a próxima!');
         process.exit(0);
     }
+
+    
 
     switch (opcao) {
         case 1:
