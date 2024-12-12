@@ -74,7 +74,7 @@ export class Account {
 
         switch (this._type) {
             case 1:
-                type = 'Checking account ';
+                type = 'Checking account.';
                 break;
             case 2:
                 type = 'Savings account.'
