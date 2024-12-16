@@ -29,11 +29,27 @@ export class AccountController implements AccountRepository{
     }
 
     update(account: Account): void {
-        throw new Error("Method not implemented.");
+        const accountFound = this.findAccount(account.accountNumber);
+
+        if(accountFound !== null){
+            this.listAccounts[this.listAccounts.indexOf(accountFound)] = account;
+            console.log('Account update!');
+            
+        } else{
+            console.log('\nAccount not found.');
+        }
     }
 
     delete(number: number): void {
-        throw new Error("Method not implemented.");
+        const accountFound = this.findAccount(number);
+
+        if(accountFound !== null){
+            this.listAccounts.splice(this.listAccounts.indexOf(accountFound), 1);
+            console.log('Account removed.');
+            
+        } else{
+            console.log('\nAccount not found.');
+        }
     }
 
     withdraw(accountNumber: number, value: number): void {
@@ -53,7 +69,7 @@ export class AccountController implements AccountRepository{
     }
 
     public  findAccount(numero: number): Account | null {
-        for (const account of this.listAccounts) {
+        for (let account of this.listAccounts) {
             if(account.accountNumber === numero){
                 return account;
             }
