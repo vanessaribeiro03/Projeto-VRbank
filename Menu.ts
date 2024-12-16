@@ -145,31 +145,33 @@ export function main() {
         break;
 
       case 4:
+        console.log("\n\nUpdate account details.\n\n");
+
         console.log("Enter the account number: ");
         accountNumber = readlinesync.questionInt("");
 
         let account1 = account.findAccount(accountNumber);
 
-        if (account1! == null) {
+        if (account1 !== null) {
+
           console.log("Enter the bank branch number: ");
           bankBranchNumber = readlinesync.questionInt("");
 
           console.log("Enter the account holder's name: ");
           holder = readlinesync.question("");
 
-          // console.log("Choose the account type: ");
-          // type = readlinesync.keyInSelect(typeAccounts, "", { cancel: false }) + 1;
-
           console.log("Enter the account balance: ");
           balance = readlinesync.questionFloat("");
+
+          type = account1.type;
 
           switch (type) {
             case 1:
               console.log("Enter the account limit: ");
               limit = readlinesync.questionFloat("");
-              account.register(
+              account.update(
                 new CheckingAccount(
-                  account.gerateNumber(),
+                  accountNumber,
                   bankBranchNumber,
                   type,
                   holder,
@@ -182,9 +184,9 @@ export function main() {
             case 2:
               console.log("Enter the savings account anniversary day:");
               anniversary = readlinesync.questionInt();
-              account.register(
+              account.update(
                 new SavingsAccount(
-                  account.gerateNumber(),
+                 accountNumber,
                   bankBranchNumber,
                   type,
                   holder,
@@ -195,15 +197,13 @@ export function main() {
               break;
           }
         } else {
-          console.log("conta não encontrada");
+          console.log("Account not found.");
         }
-
-        console.log("Dados da conta atualizado.");
 
         break;
 
       case 5:
-        console.log("\n\nApagar uma conta\n\n");
+        console.log("\n\nDelete an account\n\n");
 
         console.log("Enter the account number: ");
         accountNumber = readlinesync.questionInt("");
