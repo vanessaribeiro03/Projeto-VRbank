@@ -10,7 +10,9 @@ export function main() {
     type,
     balance,
     limit,
-    anniversary: number;
+    anniversary,
+    destinationAccountNumber,
+    value: number;
   let holder: string;
   const typeAccounts = ["Account Checking", "Account Saving"];
 
@@ -90,8 +92,7 @@ export function main() {
         holder = readlinesync.question("");
 
         console.log("Choose the account type: ");
-        type =
-          readlinesync.keyInSelect(typeAccounts, "", { cancel: false }) + 1;
+        type = readlinesync.keyInSelect(typeAccounts, "", { cancel: false }) + 1;
 
         console.log("Enter the account balance: ");
         balance = readlinesync.questionFloat("");
@@ -162,8 +163,6 @@ export function main() {
           console.log("Enter the account balance: ");
           balance = readlinesync.questionFloat("");
 
-
-
           switch (type) {
             case 1:
               console.log("Enter the account limit: ");
@@ -213,19 +212,46 @@ export function main() {
         break;
 
       case 6:
-        console.log("Saque efetuado.");
+        console.log("\n\nWithdrawal.\n\n");
+
+        console.log("Enter the account number: ");
+        accountNumber = readlinesync.questionInt("");
+
+        console.log('Enter the withdrawal amount:');
+        value = readlinesync.questionFloat('')
+
+        account.withdraw(accountNumber, value);
         break;
 
       case 7:
-        console.log("Deposito efetuado.");
+        console.log("\n\nDeposit.\n\n");
+
+        console.log("Enter the account number: ");
+        accountNumber = readlinesync.questionInt("");
+
+        console.log('Enter the deposit amount: : ');
+        value = readlinesync.questionFloat('')
+
+        account.deposit(accountNumber, value);
         break;
 
       case 8:
-        console.log("Transferência concluida.");
+        console.log("\n\nTransfer Between Accounts.\n\n");
+
+        console.log("Enter the origin account number: ");
+        accountNumber = readlinesync.questionInt("");
+
+        console.log("Enter the destination account number: ");
+        destinationAccountNumber = readlinesync.questionInt("");
+
+        console.log('Enter the transfer amount: ');
+        value = readlinesync.questionFloat('')
+
+        account.transfer(accountNumber, destinationAccountNumber,value);
         break;
 
       default:
-        console.log("Opção Inválida. Escolha uma opção entre 1 a 9.");
+        console.log('Invalid option. Please choose an option between 1 and 9.');
     }
   }
 }

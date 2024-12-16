@@ -53,15 +53,41 @@ export class AccountController implements AccountRepository{
     }
 
     withdraw(accountNumber: number, value: number): void {
-        throw new Error("Method not implemented.");
+        const accountFound = this.findAccount(accountNumber);
+
+        if(accountFound !== null){
+            if(accountFound.withdraw(value) === true){
+                console.log('Withdrawal successfully completed.')
+            }
+        }else{
+            console.log('Account not found.');
+        }
     }
 
     deposit(accountNumber: number, value: number): void {
-        throw new Error("Method not implemented.");
+        const accountFound = this.findAccount(accountNumber);
+
+        if(accountFound !== null){
+           accountFound.deposit(value)
+           console.log('Deposit successfully completed.');
+           
+        }else{
+            console.log('Account not found.');
+        }
     }
 
     transfer(originAccountNumber: number, destinationAccountNumber: number, value: number): void {
-        throw new Error("Method not implemented.");
+        const accountOrigin = this.findAccount(originAccountNumber);
+        const accountDestination = this.findAccount(destinationAccountNumber);
+
+        if(accountOrigin !== null && accountDestination !== null){
+            if(accountOrigin.withdraw(value) === true){
+                accountDestination.deposit(value)
+                console.log('Transfer successfully completed.')
+            }
+        }else{
+            console.log('Origin account and/or destination account not found.');
+        }
     } 
 
     public gerateNumber(): number{
