@@ -1,13 +1,13 @@
-export class Account {
+export abstract class Account {
   private _accountNumber: number;
-  private _bankBranch: number;
+  private _bankBranchNumber: number;
   private _type: number;
   private _holder: string;
   private _balance: number;
 
-	constructor(accountNumber: number, bankBranch: number, type: number, holder: string, balance: number) {
+	constructor(accountNumber: number, bankBranchNumber: number, type: number, holder: string, balance: number) {
 		this._accountNumber = accountNumber;
-		this._bankBranch = bankBranch;
+		this._bankBranchNumber = bankBranchNumber;
 		this._type = type;
 		this._holder = holder;
 		this._balance = balance;
@@ -18,8 +18,8 @@ export class Account {
 		return this._accountNumber;
 	}
 
-	public get bankBranch(): number {
-		return this._bankBranch;
+	public get bankBranchNumber(): number {
+		return this._bankBranchNumber;
 	}
 
 	public get type(): number {
@@ -38,8 +38,8 @@ export class Account {
 		this._accountNumber = value;
 	}
 
-	public set bankBranch(value: number) {
-		this._bankBranch = value;
+	public set bankBranchNumber(value: number) {
+		this._bankBranchNumber = value;
 	}
 
 	public set type(value: number) {
@@ -83,11 +83,11 @@ export class Account {
                 type = 'Invalid Type'
                 break;
         }
-        console.log('*******************************************');
+        console.log('\n*******************************************');
         console.log('               Account Details             ');
         console.log('*******************************************');
         console.log(`Account number: ${this._accountNumber}`);
-        console.log(`Branch number: ${this._bankBranch}`);
+        console.log(`Branch number: ${this._bankBranchNumber}`);
         console.log(`Account type: ${type}`);
         console.log(`Account holder's name: ${this._holder}`);
         console.log(`Account balance: ${this._balance}`);

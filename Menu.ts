@@ -1,45 +1,64 @@
 import readlinesync = require("readline-sync");
-import { Account } from "./src/model/Account";
 import { CheckingAccount } from "./src/model/CheckingAccount";
 import { SavingsAccount } from "./src/model/SavingsAccount";
+import { AccountController } from "./src/controller/AccountController";
 
 export function main() {
-  //   const c1 = new Account(1, 123, 1, 'Vanessa', 1000);
-  //   c1.view();
-  //   c1.withdraw(10000);
-  //   c1.view();
+  let option,
+    accountNumber,
+    bankBranchNumber,
+    type,
+    balance,
+    limit,
+    anniversary: number;
+  let holder: string;
+  const typeAccounts = ["Account Checking", "Account Saving"];
 
-  //   const c2 = new Account(1, 123, 1, 'Ribeiro', 1000);
-  //   c2.view();
-  //   c2.deposit(200);
-  //   c2.view();
+  const account = new AccountController();
 
-  const cc1 = new CheckingAccount(3, 789, 1, "Andressa", 100000, 1000);
-  cc1.view();
+  //Novas Instâncias da Classe ContaCorrente (Objetos)
 
-  cc1.withdraw(100500);
-  cc1.view();
+  account.register(
+    new CheckingAccount(
+      account.gerateNumber(),
+      1234,
+      1,
+      "Amanda Magro",
+      1000000.0,
+      100000.0
+    )
+  );
 
-  cc1.deposit(2000);
-  cc1.view();
+  account.register(
+    new CheckingAccount(
+      account.gerateNumber(),
+      4578,
+      1,
+      "João da Silva",
+      1000.0,
+      100.0
+    )
+  );
 
-  console.log("");
+  // Novas Instâncias da Classe ContaPoupança (Objetos)
 
-  const cc2 = new SavingsAccount(2, 321, 2, "Vanessa", 20000, 3);
-  cc2.view();
+  account.register(
+    new SavingsAccount(
+      account.gerateNumber(),
+      5789,
+      2,
+      "Geana Almeida",
+      10000,
+      10
+    )
+  );
 
-  cc2.withdraw(10000);
-  cc2.view();
-
-  cc2.deposit(5000);
-  cc2.view();
-
-  console.log("");
-
-  let opcao: number;
+  account.register(
+    new SavingsAccount(account.gerateNumber(), 5698, 2, "Jean Lima", 15000, 15)
+  );
 
   while (true) {
-    console.log("-------------------------------------------");
+    console.log("\n-------------------------------------------");
     console.log("                VR BANK                    ");
     console.log("-------------------------------------------");
     console.log("                                           ");
@@ -55,24 +74,72 @@ export function main() {
     console.log("-------------------------------------------");
     console.log("\nEntre com a opção desejada: ");
 
-    opcao = readlinesync.questionInt();
+    option = readlinesync.questionInt();
 
-    if (opcao === 9) {
-      console.log("Até a próxima!");
+    if (option === 9) {
+      console.log("See you next time!");
       process.exit(0);
     }
 
-    switch (opcao) {
+    switch (option) {
       case 1:
-        console.log("Conta Criada.");
+        console.log("Enter the bank branch number: ");
+        bankBranchNumber = readlinesync.questionInt("");
+
+        console.log("Enter the account holder's name: ");
+        holder = readlinesync.question("");
+
+        console.log("Choose the account type: ");
+        type = readlinesync.keyInSelect(typeAccounts, "", { cancel: false }) + 1;
+
+        console.log("Enter the account balance: ");
+        balance = readlinesync.questionFloat("");
+
+        switch (type) {
+          case 1:
+            console.log("Enter the account limit: ");
+            limit = readlinesync.questionFloat("");
+            account.register(
+              new CheckingAccount(
+                account.gerateNumber(),
+                bankBranchNumber,
+                type,
+                holder,
+                balance,
+                limit
+              )
+            );
+            break;
+
+          case 2:
+            console.log("Enter the savings account anniversary day:");
+            anniversary = readlinesync.questionInt();
+            account.register(
+              new SavingsAccount(
+                account.gerateNumber(),
+                bankBranchNumber,
+                type,
+                holder,
+                balance,
+                anniversary
+              )
+            );
+            break;
+        }
         break;
 
       case 2:
-        console.log("Lista de todas as contas:");
+        console.log("\n\nList all accounts:\n\n");
+        account.getAll();
         break;
 
       case 3:
-        console.log("Conta por numero buscada.");
+        console.log("\n\nFind account by number:\n\n");
+
+        console.log('Enter the account number: ');
+        accountNumber = readlinesync.questionInt('');
+
+        account.getByNumber(accountNumber);
         break;
 
       case 4:
