@@ -4,8 +4,8 @@ export class SavingsAccount extends Account{
     private _anniversary: number;
 
 
-	constructor(accountNumber: number, bankBranch: number, type: number, holder: string, balance: number, anniversary: number) {
-        super(accountNumber, bankBranch, type, holder, balance)
+	constructor(accountNumber: number, bankBranchNumber: number, type: number, holder: string, balance: number, anniversary: number) {
+        super(accountNumber, bankBranchNumber, type, holder, balance)
 		this._anniversary = anniversary;
 	}
 

@@ -4,8 +4,8 @@ export class CheckingAccount extends Account{
     private _limit: number;
 
 
-	constructor(accountNumber: number, bankBranch: number, type: number, holder: string, balance: number, limit: number) {
-        super(accountNumber, bankBranch, type, holder, balance)
+	constructor(accountNumber: number, bankBranchNumber: number, type: number, holder: string, balance: number, limit: number) {
+        super(accountNumber, bankBranchNumber, type, holder, balance)
 		this._limit = limit;
 	}
 
